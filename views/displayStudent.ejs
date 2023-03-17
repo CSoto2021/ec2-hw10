@@ -35,23 +35,26 @@
   <script>
 
     function sendGetStudent() {
-      var record_id_val = $("#sid").val();
-      var loc = "http://localhost:5678/getStudent";
+      var sid_val = $("#sid").val();
+      var loc = "http://localhost:5678/getStudent/" + sid_val;
       $.ajax({
         url: loc,
         type: "get",
+        data:{
+          student_id: sid_val
+        },
         success: function(response) {
-          $("#mydiv").text(response);
+          console.log('hello')
           var resp = JSON.stringify(response)
           console.log(resp)
           var tbl=$("<table/>").attr("id","mytable");
           $("#div2").append(tbl);
           //Intial parse only creates a string
-          var string = $.parseJSON(resp);
           //Successfully parses, but does not create an array
-          var jarr = $.parseJSON(string);
+          var jarr = $.parseJSON(resp);
           var realArr = [ ];
           //Pushes JSON into arr
+          console.log(jarr)
           realArr.push(jarr);
           console.log(realArr)
           //Function creates table to be outputted
@@ -59,7 +62,7 @@
           var th2 = "<th>" + "First Name" + "</th>";
           var th3 = "<th>" + "GPA" + "</th>";
           var th4 = "<th>" + "Last Name" + "</th>";
-          var th5 = "<th>" + "Record ID" + "</th>";
+          var th5 = "<th>" + "Student ID" + "</th>";
           $("#mytable").append(tr+th1+th2+th3+th4+th5); 
           for(var i=0;i<realArr.length;i++)
             {

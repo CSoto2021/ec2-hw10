@@ -22,8 +22,8 @@
     <label for="enroll">Enrolled:</label>
     <input type="text" id="enroll" name="enroll"><br><br>
 
-    <label for="record_id">Record ID:</label>
-    <input type="text" id="record_id" name="record_id"><br><br>
+    <label for="sid">Student_ID:</label>
+    <input type="text" id="sid" name="sid"><br><br>
   
   <button onclick="updateVotes()">Update Students</button>
   <br>
@@ -37,13 +37,14 @@
       var lname_val = $("#lname").val();
       var gpa_val=$("#gpa").val();
       var enrolled_val=$("#enroll").val();
-      var record_id_val=$("#record_id").val()
-      var temp= "http://localhost:5678/students/"+record_id_val
+      var sid_val=$("#sid").val()
+      var temp= "http://localhost:5678/students/"+sid_val;
       console.log(temp)
       $.ajax({
         url: temp,
         type: "put",
         data: { 
+          student_id: sid_val,
           first_name:fname_val,
           last_name:lname_val,
           gpa:gpa_val,

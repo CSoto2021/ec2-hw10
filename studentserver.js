@@ -104,16 +104,28 @@ catch (error) {
 }
 })
 
-app.get('/getStudent', async function(req, res){{
-  console.log(req.body.student_id);
+app.get('/getStudent/:student_id', async function(req, res){{
+  console.log(req.params.student_id);
   try{
-    await Model.findOne({ID: req.body.student_id});
-    res.status(200).send("Success!")
+    const data = await Model.findOne({ID: req.params.student_id});
+    res.status(200).send(data);
   }
   catch(error){
+    console.log("error");
     res.status(400).send("Error");
   }
-}})
+}});
+
+app.put('/students/:student_id', async function(req, res){
+  try{
+    console.log(req.body);
+    res.status(200);
+  }
+  catch(error){
+    console.log("error");
+    res.status(400).send("Error");
+  }
+});
 
 app.listen(5678); //start the server
 console.log('Server is running...');
