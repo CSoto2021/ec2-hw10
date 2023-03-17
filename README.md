@@ -1,1 +1,5 @@
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-c66648af7eb3fe8bc4f294546bfd86ef473780cde1dea487d3c4ff354943c9ae.svg)](https://classroom.github.com/online_ide?assignment_repo_id=10536400&assignment_repo_type=AssignmentRepo)
+In this project, we are using the student server expressjs file we worked with last project to create webpages 
+that allow us to interact with the API's functionality. We will be creating multiple basic HTMl webpages, each webpage dedicated
+to its own simple function such as adding a student to the data file, deleting students, or displaying a students information
+to the screen. After every function is succesfully executed, the webpage should inform the user that the action was a success,
+and the effects should be visible in the JSON folder. 

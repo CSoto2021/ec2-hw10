@@ -1,0 +1,98 @@
+<!-- filename: getVote.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>Get Student</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            </div>
+            <ol class="nav navbar-nav">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./addStudent.html">Add</a></li>
+            <li><a href="./deleteStudent.html">Delete</a></li>
+            <li><a href="./displayStudent.html">Display</a></li>
+            <li><a href="./updateStudent.html">Update</a></li>
+            <li><a href="./listStudents.html">List</a></li>
+            </ol>
+        </div>
+    </nav>
+
+  <label for="sid">Record ID:</label>
+  <input type="text" id="sid" name="sid"><br><br>
+
+  <button onclick="sendGetStudent()">Submit</button>
+  <br>
+  <br>
+  <div id="mydiv" name="mydiv"></div>
+  <div id="div2" name="div2">
+    <style>
+      #mytable,td{
+        border:1px solid black;
+      }
+      th, td{
+        padding: 8px;
+        text-align: left;
+        padding: 8px;
+      }
+      table{
+        width: 80%;
+      }
+    </style>
+  </div>
+  <script>
+
+    function sendGetStudent() {
+      var record_id_val = $("#sid").val();
+      var loc = "http://localhost:5678/students/"+ record_id_val;
+      $.ajax({
+        url: loc,
+        type: "get",
+        success: function(response) {
+          $("#mydiv").text(response);
+          var resp = JSON.stringify(response)
+          console.log(resp)
+          var tbl=$("<table/>").attr("id","mytable");
+          $("#div2").append(tbl);
+          //Intial parse only creates a string
+          var string = $.parseJSON(resp);
+          //Successfully parses, but does not create an array
+          var jarr = $.parseJSON(string);
+          var realArr = [ ];
+          //Pushes JSON into arr
+          realArr.push(jarr);
+          console.log(realArr)
+          //Function creates table to be outputted
+          var th1 = "<th>" + "Enrolled" + "</th>";
+          var th2 = "<th>" + "First Name" + "</th>";
+          var th3 = "<th>" + "GPA" + "</th>";
+          var th4 = "<th>" + "Last Name" + "</th>";
+          var th5 = "<th>" + "Record ID" + "</th>";
+          $("#mytable").append(tr+th1+th2+th3+th4+th5); 
+          for(var i=0;i<realArr.length;i++)
+            {
+            var tr="<tr>";
+            var td1="<td>"+realArr[i]["enrolled"]+"</td>";
+            var td2="<td>"+realArr[i]["first_name"]+"</td>";
+            var td3="<td>"+realArr[i]["gpa"]+"</td>";
+            var td4="<td>"+realArr[i]["last_name"]+"</td>";
+            var td5="<td>"+realArr[i]["record_id"]+"</td>";
+
+            $("#mytable").append(tr+td1+td2+td3+td4+td5); 
+          }
+        },
+        error: function(xhr) {
+          $("#mydiv").text('error: ' + xhr);
+        }
+      });
+    }
+    
+  </script>
+
+</body>
+</html>
