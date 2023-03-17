@@ -10,7 +10,7 @@
 </head>
 <body>
 
-  <label for="sid">Record ID:</label>
+  <label for="sid">Student ID:</label>
   <input type="text" id="sid" name="sid"><br><br>
 
   <button onclick="sendGetStudent()">Submit</button>
@@ -36,7 +36,7 @@
 
     function sendGetStudent() {
       var record_id_val = $("#sid").val();
-      var loc = "http://localhost:5678/students/"+ record_id_val;
+      var loc = "http://localhost:5678/getStudent";
       $.ajax({
         url: loc,
         type: "get",

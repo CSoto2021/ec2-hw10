@@ -6,10 +6,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</head>
 <%- include('partials/Navbar') %>
+</head>
 <body>
-    
+  <label for="sid">Student ID:</label>
+  <input type="text" id="sid" name="sid"><br><br>
+
   <label for="fname">First Name:</label>
   <input type="text" id="fname" name="nfame"><br><br>
 
@@ -29,23 +31,27 @@
   <script>
 
     function sendVote() {
+      var sid_val = $('#sid').val();
       var fname_val = $("#fname").val();
       var lname_val = $("#lname").val();
       var gpa_val=$("#gpa").val();
       var enrolled_val=$("#enroll").val();
       $.ajax({
-        url: "http://localhost:5678/students",
+        url: "http://localhost:5678/student",
         type: "post",
         data: { 
+          student_id: sid_val,
           first_name: fname_val,
           last_name: lname_val,
           gpa: gpa_val,
           enrolled: enrolled_val
         },
         success: function(response) {
+          
           $("#mydiv").text(response);
         },
         error: function(xhr) {
+          
           $("#mydiv").text('error: ' + xhr);
         }
       });

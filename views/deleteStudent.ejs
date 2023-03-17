@@ -10,8 +10,8 @@
 <body>
     
   <div class="container">
-  <label for="record_id">RecordID:</label>
-  <input type="text" id="record_id" name="record_id"><br><br>
+  <label for="record_id">Student ID:</label>
+  <input type="text" id="sid" name="record_id"><br><br>
 
   <button onclick="deleteVotes()">Delete Votes</button><br><br>
   <div id="mydiv" name="mydiv"></div>
@@ -20,11 +20,14 @@
   <script>
 
     function deleteVotes() {
-      var record_id_val = $("#record_id").val();
-      var temp="http://localhost:5678/students/"+record_id_val
+      var sid_val = $("#sid").val();
+      var temp="http://localhost:5678/delete"
       $.ajax({
         url: temp,
         type: "delete",
+        data:{
+          student_id: sid_val
+        },
         success: function(response) {
           $("#mydiv").text("successfully deleted");
         },
