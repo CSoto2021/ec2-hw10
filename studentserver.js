@@ -86,7 +86,7 @@ app.post('/student', async function(req, res){
     gpa: req.body.gpa,
     enrolled: req.body.enrolled
 })
-var x = await Model.find({first_name:req.body.first_name, last_name: req.body.last_name}).count()
+var x = await Model.find({ID: req.body.student_id, first_name:req.body.first_name, last_name: req.body.last_name}).count()
 if(x != 0){
   console.log("Student Already Exists")
   res.status(400).send("Error, student exists!");
