@@ -117,15 +117,30 @@ app.get('/getStudent/:student_id', async function(req, res){{
 }});
 
 app.put('/students/:student_id', async function(req, res){
+  var fname = req.body.first_name;
+  var lname = req.body.last_name;
+  var en = JSON.stringify(req.body.enrolled);
   try{
-    console.log(req.body);
-    res.status(200);
+    console.log("Hello")
+    await Model.findOneAndUpdate({ID: req.body.student_id},{$set:{first_name: fname, last_name: lname, gpa: req.body.gpa, enrolled: en}});
+    res.status(200).send("Success");
   }
   catch(error){
     console.log("error");
     res.status(400).send("Error");
   }
 });
+
+app.get('/students', async function(req, res){
+  try{
+    const data = await Model.find();
+    console.log(data);
+    res.status(200).send(data);
+  }
+  catch(error){
+    res.status(400).send("Error");
+  }
+})
 
 app.listen(5678); //start the server
 console.log('Server is running...');
