@@ -138,7 +138,7 @@ app.get('/getStudent/:student_id', async function(req, res){{
 app.put('/students/:student_id', async function(req, res){
   var fname = req.body.first_name;
   var lname = req.body.last_name;
-  var en = JSON.stringify(req.body.enrolled);
+  var en = req.body.enrolled;
   try{
     console.log("Hello")
     await Model.findOneAndUpdate({ID: req.body.student_id},{$set:{first_name: fname, last_name: lname, gpa: req.body.gpa, enrolled: en}});
