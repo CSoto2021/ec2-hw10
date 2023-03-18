@@ -3,13 +3,16 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+//Brings in the hidden url from the dotenv file
 require('dotenv').config();
 
+//sets the url
 const mongoString = process.env.DBURL;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.set('view engine', 'ejs');
 
+//Connects to the database, informs the programmer if connection successful.
 mongoose.connect(mongoString);
 const database = mongoose.connection;
 
@@ -20,6 +23,7 @@ database.once('connected', () => {
   console.log('Database Connected');
 })
 
+//Creates schema to insert to the database, sets schema to a constant to be used in api calls.
 const studentSchema = new mongoose.Schema({
   ID:{
     required: true,
@@ -71,6 +75,9 @@ app.get('/list', function(req, res) {
 
 }); 
 
+//Initial post function, takes in user inputted fields and sends to the database. Sends front end message to inform
+//a successful post, if an error occurs returns code 400. Also checks if a student already exists with the same first 
+//and last name by checking to see if more than zero schemas with matching fields exists. If not, function as usual.
 app.post('/student', async function(req, res){
   const data = new Model({
     ID: req.body.student_id,
@@ -79,17 +86,26 @@ app.post('/student', async function(req, res){
     gpa: req.body.gpa,
     enrolled: req.body.enrolled
 })
-console.log(data)
-try {
+var x = await Model.find({first_name:req.body.first_name, last_name: req.body.last_name}).count()
+if(x != 0){
+  console.log("Student Already Exists")
+  res.status(400).send("Error, student exists!");
+}
+else{ 
+    console.log(data)
+  try {
   console.log("Worked")
   const dataToSave = await data.save();
   res.status(200).send("Success");
-}
-catch (error) {
+  }
+  catch (error) {
   res.status(400).send("Error");
+  }
 }
 });
 
+//Function that deletes a single student record based on the inputted Id. If the ID is successfully found and the user
+//If student ID is not found, return error.
 app.delete('/delete', async function(req, res){
   console.log(req.body.student_id)
   try {
@@ -104,6 +120,7 @@ catch (error) {
 }
 })
 
+//Function that retrieves the student ID that was inputted by the user, if student ID was not found return error.
 app.get('/getStudent/:student_id', async function(req, res){{
   console.log(req.params.student_id);
   try{
@@ -116,6 +133,8 @@ app.get('/getStudent/:student_id', async function(req, res){{
   }
 }});
 
+//Function that updates the student information based on the ID that the user input. Upates all fields of a student record
+//except the id field.
 app.put('/students/:student_id', async function(req, res){
   var fname = req.body.first_name;
   var lname = req.body.last_name;
@@ -131,6 +150,7 @@ app.put('/students/:student_id', async function(req, res){
   }
 });
 
+//Function that retrieves all student records saved in the database.
 app.get('/students', async function(req, res){
   try{
     const data = await Model.find();
