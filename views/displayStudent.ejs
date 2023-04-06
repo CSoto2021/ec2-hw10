@@ -36,7 +36,7 @@
 
     function sendGetStudent() {
       var sid_val = $("#sid").val();
-      var loc = "https://hw7-deployment.herokuapp.com/getStudent/" + sid_val;
+      var loc = "http://localhost:5678/getStudent/" + sid_val;
       $.ajax({
         url: loc,
         type: "get",
