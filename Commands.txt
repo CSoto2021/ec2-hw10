@@ -1,0 +1,6 @@
+git credential-osxkeychain erase
+host=github.com
+Protocol=https
+
+
+Hw7 mongoldb pw: xbXeQxsBq28e2LNd
