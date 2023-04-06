@@ -162,5 +162,6 @@ app.get('/students', async function(req, res){
   }
 })
 
-app.listen(5678); //start the server
+var port = process.env.PORT || 5678;
+app.listen(port); //start the server
 console.log('Server is running...');
