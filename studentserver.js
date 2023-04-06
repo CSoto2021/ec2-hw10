@@ -7,7 +7,8 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 //sets the url
-const mongoString = process.env.DBURL;
+var DBURL = 'mongodb+srv://sotoc2021:xbXeQxsBq28e2LNd@clusterhw7.cfuavxj.mongodb.net/test'
+const mongoString = DBURL;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.set('view engine', 'ejs');
@@ -163,5 +164,5 @@ app.get('/students', async function(req, res){
 })
 
 var port = process.env.PORT || 5678;
-app.listen(port); //start the server
+var listner = app.listen(port); //start the server
 console.log('Server is running...');
