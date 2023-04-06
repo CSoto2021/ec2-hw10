@@ -34,7 +34,7 @@
   <script>
     function sendGetAllStudent() {
       $.ajax({
-        url: "http://localhost:5678/students",
+        url: "https://hw7-deployment.herokuapp.com/students",
         type: "get",
         success: function(response) {
         var resp = JSON.stringify(response)

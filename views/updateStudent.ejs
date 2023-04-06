@@ -38,7 +38,7 @@
       var gpa_val=$("#gpa").val();
       var enrolled_val=$("#enroll").val();
       var sid_val=$("#sid").val()
-      var temp= "http://localhost:5678/students/"+sid_val;
+      var temp= "https://hw7-deployment.herokuapp.com/students/"+sid_val;
       console.log(temp)
       $.ajax({
         url: temp,
