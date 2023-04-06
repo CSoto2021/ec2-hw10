@@ -7,8 +7,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 //sets the url
-var DBURL = 'mongodb+srv://sotoc2021:xbXeQxsBq28e2LNd@clusterhw7.cfuavxj.mongodb.net/test'
-const mongoString = DBURL;
+const mongoString = process.env.DBURL;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.set('view engine', 'ejs');
