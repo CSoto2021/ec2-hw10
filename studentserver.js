@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser');
+const cors = require('cors')
 const mongoose = require('mongoose');
 //Brings in the hidden url from the dotenv file
 require('dotenv').config();
@@ -11,6 +12,9 @@ const mongoString = process.env.DBURL;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 app.set('view engine', 'ejs');
+app.use(cors({
+  orgin: '*'
+}));
 
 //Connects to the database, informs the programmer if connection successful.
 mongoose.connect(mongoString);
